@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100d19">
+  <meta name="description" content="عالم صغير من مروان إلى رنا، معمول مخصوص عشانك.">
+  <title>A Gift For Rana</title>
+  <link rel="icon" href="assets/images/site-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="page-loader" id="pageLoader" aria-hidden="true">
+    <span class="loader-orbit"><i></i></span>
+  </div>
+
+  <div class="ambient" id="ambient" aria-hidden="true">
+    <div class="ambient-glow ambient-glow--one"></div>
+    <div class="ambient-glow ambient-glow--two"></div>
+    <div class="ambient-stars" id="ambientStars"></div>
+    <div class="ambient-floaters" id="ambientFloaters"></div>
+  </div>
+
+  <div class="reading-progress" id="readingProgress" role="progressbar" aria-label="مدى التقدم في الهدية" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <span id="readingProgressFill"></span>
+  </div>
+
+  <section class="entry-screen" id="entryScreen" aria-labelledby="gateTitle">
+    <div class="entry-orbit" aria-hidden="true"><span>✦</span></div>
+    <div class="entry-card glass-panel">
+      <span class="eyebrow entry-eyebrow" data-entry-eyebrow></span>
+      <h1 id="gateTitle" data-gate-title></h1>
+      <p class="entry-copy" data-gate-description></p>
+      <form id="passwordForm" class="password-form" novalidate>
+        <label class="visually-hidden" for="passwordInput" data-password-label></label>
+        <input id="passwordInput" name="password" type="password" autocomplete="off" required>
+        <p class="form-feedback" id="passwordFeedback" role="status" aria-live="polite"></p>
+        <button class="button button--primary entry-submit" id="enterButton" type="submit">
+          <span data-gate-submit></span><span class="button-glint" aria-hidden="true"></span>
+        </button>
+      </form>
+    </div>
+    <span class="entry-footer-mark" aria-hidden="true">✦</span>
+  </section>
+
+  <div class="site-shell" id="siteShell" hidden>
+    <header class="site-header" id="siteHeader">
+      <a class="wordmark" href="#intro" id="wordmarkLink">
+        <span class="wordmark-ring" aria-hidden="true"><span>✦</span></span>
+        <span class="wordmark-name" data-recipient-name></span>
+        <span class="wordmark-heart" aria-hidden="true">♥</span>
+      </a>
+    </header>
+
+    <main>
+      <section class="hero section-anchor" id="intro" aria-labelledby="heroTitle">
+        <div class="hero-sky" id="heroSky" aria-hidden="true"><span class="hero-moon"></span><span class="hero-star hero-star--a">✦</span><span class="hero-star hero-star--b">✧</span><span class="hero-star hero-star--c">✦</span></div>
+        <div class="hero-copy">
+          <p class="hero-kicker reveal" id="heroFirstLine"></p>
+          <p class="hero-name-line reveal" id="heroSecondLine"></p>
+          <span class="hero-rule reveal" aria-hidden="true"><i></i></span>
+          <h1 class="hero-title reveal" id="heroTitle"></h1>
+          <p class="hero-description reveal" id="heroDescription"></p>
+          <a class="button button--primary hero-cta reveal" href="#gallery" id="journeyButton"><span id="journeyButtonLabel"></span><span class="button-arrow" aria-hidden="true">←</span></a>
+        </div>
+        <a class="scroll-cue" href="#gallery" id="scrollCue"><span></span></a>
+      </section>
+
+      <section class="content-section gallery-section section-anchor" id="gallery" aria-labelledby="galleryTitle">
+        <div class="section-heading reveal">
+          <h2 id="galleryTitle"></h2>
+          <span class="section-ornament" aria-hidden="true">✦</span>
+        </div>
+        <div class="photo-gallery" id="photoGallery" aria-live="polite"></div>
+      </section>
+
+      <section class="content-section qualities-section section-anchor" id="qualities" aria-labelledby="qualitiesTitle">
+        <div class="section-heading reveal">
+          <h2 id="qualitiesTitle"></h2>
+        </div>
+        <div class="qualities-grid" id="qualitiesGrid"></div>
+      </section>
+
+      <section class="letter-section section-anchor" id="heart-letter" aria-labelledby="heartLetterTitle">
+        <div class="letter-halo" aria-hidden="true"></div>
+        <div class="letter-side-mark" aria-hidden="true"><span>♥</span></div>
+        <article class="heart-letter-card reveal">
+          <h2 id="heartLetterTitle"></h2>
+          <div class="letter-divider" aria-hidden="true"><span>✦</span></div>
+          <div class="heart-letter-copy" id="heartLetterCopy"></div>
+          <p class="letter-signature" id="heartLetterSignature"></p>
+        </article>
+      </section>
+
+      <section class="content-section reasons-section section-anchor" id="reasons" aria-labelledby="reasonsTitle">
+        <div class="section-heading reveal">
+          <h2 id="reasonsTitle"></h2>
+        </div>
+        <div class="reasons-stage">
+          <div class="reasons-list" id="reasonsList" aria-live="polite"></div>
+          <button class="button button--outline discover-button" id="discoverButton" type="button"><span id="discoverButtonLabel"></span><span aria-hidden="true">✦</span></button>
+        </div>
+      </section>
+
+      <section class="timeline-section section-anchor" id="milestone" aria-labelledby="timelineTitle">
+        <div class="timeline-card glass-panel reveal">
+          <span class="timeline-orbit" aria-hidden="true"><i>✦</i></span>
+          <h2 id="timelineTitle"></h2>
+          <p class="timeline-date" id="timelineDate"></p>
+          <p class="timeline-description" id="timelineDescription"></p>
+          <div class="countdown" id="countdown" aria-label="المدة التي مرت منذ بداية الحكاية"></div>
+        </div>
+      </section>
+
+      <section class="star-world section-anchor" id="star-world" aria-labelledby="starsTitle">
+        <div class="star-world-sky" id="starWorldSky" aria-hidden="true"></div>
+        <div class="star-world-content reveal">
+          <h2 id="starsTitle"></h2>
+          <button class="main-star" id="mainStarButton" type="button" aria-expanded="false"><span aria-hidden="true">✦</span></button>
+          <p class="star-message" id="starMessage" hidden></p>
+        </div>
+      </section>
+
+      <section class="video-section section-anchor" id="video-moment" aria-labelledby="videoTitle">
+        <div class="video-card glass-panel reveal">
+          <div class="video-heading">
+            <span class="video-ornament" aria-hidden="true">✦</span>
+            <h2 id="videoTitle"></h2>
+          </div>
+          <div class="video-frame">
+            <video id="giftVideo" controls playsinline preload="metadata" aria-labelledby="videoTitle"></video>
+          </div>
+        </div>
+      </section>
+
+      <section class="world-journey section-anchor" id="world-journey" aria-label="رحلتنا بين البلاد والنجوم">
+        <div class="journey-scene" id="journeyScene">
+          <div class="journey-map" id="journeyMap" aria-hidden="true">
+            <div class="journey-map-canvas">
+              <div class="journey-map-zoom" id="journeyMapZoom">
+                <svg class="world-map-svg" viewBox="0 0 1000 500" role="img" aria-label="خريطة العالم">
+                  <defs>
+                    <radialGradient id="mapGlowGradient">
+                      <stop offset="0" stop-color="#fff5fb" stop-opacity="1"></stop>
+                      <stop offset=".22" stop-color="#ff8bc1" stop-opacity=".78"></stop>
+                      <stop offset="1" stop-color="#ff5ca8" stop-opacity="0"></stop>
+                    </radialGradient>
+                  </defs>
+                  <image class="map-atlas" href="assets/images/journey-world-map.svg" x="0" y="0" width="1000" height="500" preserveAspectRatio="none"></image>
+                  <image class="map-target-atlas" href="assets/images/journey-targets.svg" x="0" y="0" width="1000" height="500" preserveAspectRatio="none"></image>
+                  <g class="map-grid" aria-hidden="true">
+                    <path d="M0 95H1000M0 170H1000M0 280H1000M0 390H1000M0 465H1000"></path>
+                    <path d="M500 0V500M340 0Q397 250 340 500M660 0Q603 250 660 500M190 0Q292 250 190 500M810 0Q708 250 810 500"></path>
+                  </g>
+                  <g class="map-pins" aria-hidden="true">
+                    <g class="map-pin map-pin--turkey">
+                      <circle class="country-halo" cx="582.1" cy="127.2" r="22"></circle>
+                      <circle class="country-pin" id="mapPinTurkey" cx="582.1" cy="127.2" r="3.4"></circle>
+                    </g>
+                    <g class="map-pin map-pin--syria">
+                      <circle class="country-halo" cx="592.8" cy="140.3" r="18"></circle>
+                      <circle class="country-pin" id="mapPinSyria" cx="592.8" cy="140.3" r="3"></circle>
+                    </g>
+                    <g class="map-pin map-pin--egypt">
+                      <circle class="country-halo" cx="573.2" cy="167.1" r="21"></circle>
+                      <circle class="country-pin" id="mapPinEgypt" cx="573.2" cy="167.1" r="3.4"></circle>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <svg class="country-connectors" id="countryConnectors" aria-hidden="true" preserveAspectRatio="none">
+              <g class="country-connector country-connector--turkey">
+                <path id="countryLineTurkey"></path>
+                <circle id="countryLineDotTurkey" r="2.2"></circle>
+              </g>
+              <g class="country-connector country-connector--syria">
+                <path id="countryLineSyria"></path>
+                <circle id="countryLineDotSyria" r="2.2"></circle>
+              </g>
+              <g class="country-connector country-connector--egypt">
+                <path id="countryLineEgypt"></path>
+                <circle id="countryLineDotEgypt" r="2.2"></circle>
+              </g>
+            </svg>
+            <div class="journey-map-labels">
+              <span class="country-label country-label--turkey" id="countryTurkey"></span>
+              <span class="country-label country-label--syria" id="countrySyria"></span>
+              <span class="country-label country-label--egypt" id="countryEgypt"></span>
+            </div>
+          </div>
+
+          <div class="journey-zodiac" id="journeyZodiac" aria-hidden="true" inert>
+            <div class="zodiac-card zodiac-card--cancer">
+              <button class="constellation-button" id="cancerButton" type="button" disabled aria-pressed="false">
+                <svg class="constellation constellation--cancer" viewBox="0 0 440 370" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="cancerStarGlow"><stop stop-color="#fff8d8"></stop><stop offset=".3" stop-color="#ffe4a8" stop-opacity=".82"></stop><stop offset="1" stop-color="#ffe4a8" stop-opacity="0"></stop></radialGradient>
+                    <filter id="cancerStarSoft" x="-150%" y="-150%" width="400%" height="400%"><feGaussianBlur stdDeviation="3"></feGaussianBlur></filter>
+                  </defs>
+                  <rect class="constellation-frame" x="25" y="26" width="390" height="318" rx="18"></rect>
+                  <g class="constellation-grid" aria-hidden="true">
+                    <path d="M45 75H395M45 145H395M45 215H395M45 285H395M100 45V325M180 45V325M260 45V325M340 45V325"></path>
+                    <path class="constellation-equator" d="M45 185H395"></path>
+                    <text x="35" y="360">J2000</text><text x="348" y="360">Cnc</text>
+                  </g>
+                  <g class="constellation-field-stars" aria-hidden="true">
+                    <circle cx="73" cy="112" r=".8"></circle><circle cx="115" cy="54" r=".7"></circle>
+                    <circle cx="121" cy="248" r=".7"></circle><circle cx="149" cy="114" r=".8"></circle>
+                    <circle cx="156" cy="229" r=".65"></circle><circle cx="172" cy="318" r=".7"></circle>
+                    <circle cx="208" cy="92" r=".65"></circle><circle cx="249" cy="78" r=".8"></circle>
+                    <circle cx="269" cy="126" r=".7"></circle><circle cx="278" cy="252" r=".8"></circle>
+                    <circle cx="316" cy="171" r=".7"></circle><circle cx="325" cy="302" r=".65"></circle>
+                    <circle cx="365" cy="225" r=".8"></circle><circle cx="378" cy="104" r=".7"></circle>
+                  </g>
+                  <g class="constellation-lines" aria-hidden="true">
+                    <path d="M286.3 326.3 301 204.5 195.2 149.5 183.6 44.5M195.2 149.5 190.4 197.2 143.5 287.8M301 204.5 235.3 198 231.2 164 195.2 149.5"></path>
+                    <path class="constellation-link" d="M195.2 149.5 190.4 197.2"></path>
+                  </g>
+                  <g class="constellation-cluster" aria-hidden="true">
+                    <circle class="cluster-orbit" cx="205" cy="175.4" r="11"></circle>
+                    <circle cx="199" cy="171" r="1"></circle><circle cx="204" cy="168" r=".8"></circle>
+                    <circle cx="208" cy="171" r="1.1"></circle><circle cx="202" cy="176" r=".9"></circle>
+                    <circle cx="208" cy="178" r=".8"></circle><circle cx="212" cy="175" r=".7"></circle>
+                    <circle cx="198" cy="180" r=".65"></circle><circle cx="205" cy="183" r=".8"></circle>
+                    <circle cx="212" cy="182" r=".65"></circle><circle cx="195" cy="175" r=".6"></circle>
+                  </g>
+                  <g class="constellation-stars">
+                    <circle class="star--major" cx="286.3" cy="326.3" r="3.3"></circle>
+                    <circle cx="301" cy="204.5" r="2"></circle>
+                    <circle cx="195.2" cy="149.5" r="2.2"></circle>
+                    <circle class="star--major" cx="190.4" cy="197.2" r="2.6"></circle>
+                    <circle class="star--major" cx="183.6" cy="44.5" r="2.5"></circle>
+                    <circle cx="143.5" cy="287.8" r="2"></circle>
+                    <circle cx="231.2" cy="164" r="1.4"></circle>
+                    <circle cx="235.3" cy="198" r="1.7"></circle>
+                    <circle cx="163.5" cy="50.6" r="1.2"></circle>
+                  </g>
+                  <g class="constellation-labels" aria-hidden="true">
+                    <text x="295" y="340">β · Altarf</text>
+                    <text x="307" y="198">ζ · Tegmine</text>
+                    <text x="150" y="140">γ</text><text x="151" y="214">δ</text>
+                    <text x="193" y="38">ι</text><text x="127" y="305">α · Acubens</text>
+                    <text x="218" y="188">M44 · Beehive</text>
+                  </g>
+                </svg>
+                <span class="constellation-name" id="cancerName"></span>
+              </button>
+              <p class="zodiac-message" id="cancerMessage" role="status" hidden></p>
+            </div>
+            <div class="zodiac-card zodiac-card--capricorn" id="capricornCard">
+              <button class="constellation-button" id="capricornButton" type="button" disabled aria-pressed="false">
+                <svg class="constellation constellation--capricorn" viewBox="0 0 440 370" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="capricornStarGlow"><stop stop-color="#fff8df"></stop><stop offset=".3" stop-color="#e4d8ff" stop-opacity=".82"></stop><stop offset="1" stop-color="#e4d8ff" stop-opacity="0"></stop></radialGradient>
+                    <filter id="capricornStarSoft" x="-150%" y="-150%" width="400%" height="400%"><feGaussianBlur stdDeviation="3"></feGaussianBlur></filter>
+                  </defs>
+                  <rect class="constellation-frame" x="25" y="26" width="390" height="318" rx="18"></rect>
+                  <g class="constellation-grid" aria-hidden="true">
+                    <path d="M45 75H395M45 145H395M45 215H395M45 285H395M100 45V325M180 45V325M260 45V325M340 45V325"></path>
+                    <path class="constellation-equator" d="M45 185H395"></path>
+                    <text x="35" y="360">J2000</text><text x="348" y="360">Cap</text>
+                  </g>
+                  <g class="constellation-field-stars" aria-hidden="true">
+                    <circle cx="61" cy="105" r=".7"></circle><circle cx="92" cy="240" r=".8"></circle>
+                    <circle cx="119" cy="89" r=".7"></circle><circle cx="158" cy="122" r=".8"></circle>
+                    <circle cx="174" cy="284" r=".7"></circle><circle cx="198" cy="225" r=".65"></circle>
+                    <circle cx="229" cy="72" r=".7"></circle><circle cx="292" cy="106" r=".8"></circle>
+                    <circle cx="303" cy="196" r=".7"></circle><circle cx="322" cy="257" r=".65"></circle>
+                    <circle cx="348" cy="223" r=".8"></circle><circle cx="386" cy="174" r=".7"></circle>
+                  </g>
+                  <g class="constellation-lines" aria-hidden="true">
+                    <path d="M254.7 142.2 206.6 159.6 136 234.1 254.7 142.2M206.6 159.6 274.2 275.3 254.6 299M254.7 142.2 369.6 92 359.5 124.3M206.6 159.6 90.3 151.3 66.7 143.6"></path>
+                  </g>
+                  <g class="constellation-stars">
+                    <circle class="star--major" cx="371" cy="91.9" r="2.5"></circle>
+                    <circle class="star--major" cx="369.6" cy="92" r="2.9"></circle>
+                    <circle class="star--major" cx="359.5" cy="124.3" r="3.1"></circle>
+                    <circle class="star--major" cx="90.3" cy="151.3" r="2.8"></circle>
+                    <circle class="star--major" cx="66.7" cy="143.6" r="3"></circle>
+                    <circle cx="100.6" cy="191.7" r="2.2"></circle>
+                    <circle cx="136" cy="234.1" r="2.3"></circle>
+                    <circle cx="206.6" cy="159.6" r="2.1"></circle>
+                    <circle cx="254.7" cy="142.2" r="2"></circle>
+                    <circle cx="254.6" cy="299" r="2.1"></circle>
+                    <circle cx="274.2" cy="275.3" r="2"></circle>
+                  </g>
+                  <g class="constellation-labels" aria-hidden="true">
+                    <text x="378" y="87">α¹</text><text x="378" y="105">α²</text>
+                    <text x="369" y="139">β · Dabih</text>
+                    <text x="261" y="137">ι</text><text x="212" y="154">θ</text>
+                    <text x="119" y="252">ζ</text>
+                    <text x="86" y="137">γ</text><text x="40" y="136">δ</text>
+                    <text x="280" y="272">ψ</text><text x="262" y="318">ω</text>
+                  </g>
+                </svg>
+                <span class="constellation-name" id="capricornName"></span>
+              </button>
+              <p class="zodiac-message" id="capricornMessage" role="status" hidden></p>
+            </div>
+          </div>
+
+          <div class="royal-scene" id="royalScene" aria-hidden="true" inert>
+            <div class="royal-arch" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="royal-stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="royal-dust" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="royal-floor" aria-hidden="true"></div>
+            <div class="royal-princess" aria-hidden="true">
+              <svg class="princess-art" viewBox="0 0 220 470" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+                <defs>
+                  <linearGradient id="pSkin" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#ffe9d4"></stop><stop offset=".55" stop-color="#f3c6ab"></stop><stop offset="1" stop-color="#dfa987"></stop></linearGradient>
+                  <linearGradient id="pGown" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#7d1030"></stop><stop offset=".4" stop-color="#c91848"></stop><stop offset=".72" stop-color="#f0607c"></stop><stop offset="1" stop-color="#5c0c28"></stop></linearGradient>
+                  <linearGradient id="pGold" x1="0" x2="1"><stop stop-color="#8a6a34"></stop><stop offset=".5" stop-color="#ffe9a8"></stop><stop offset="1" stop-color="#a87f42"></stop></linearGradient>
+                  <linearGradient id="pHair" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#4a2c3c"></stop><stop offset=".6" stop-color="#2c1a29"></stop><stop offset="1" stop-color="#170e1b"></stop></linearGradient>
+                  <filter id="pSoft" x="-60%" y="-40%" width="220%" height="200%"><feGaussianBlur stdDeviation="7"></feGaussianBlur></filter>
+                </defs>
+                <ellipse class="p-shadow" cx="110" cy="441" rx="74" ry="9" fill="#000" opacity=".3" filter="url(#pSoft)"></ellipse>
+                <g class="p-skirt">
+                  <path class="p-gown" d="M97 250 C90 302 72 372 50 430 C44 442 56 448 70 444 L150 444 C164 448 176 442 170 430 C148 372 130 302 123 250 Q110 242 97 250 Z"></path>
+                  <path class="p-fold" d="M110 264 C104 322 100 382 98 436M110 264 C116 322 120 382 122 436M86 306 C96 344 104 392 108 434M136 306 C126 344 118 392 114 434"></path>
+                  <path class="p-hem" d="M52 426 C66 438 96 442 110 442 C124 442 154 438 168 426"></path>
+                </g>
+                <g class="p-arm p-arm--far" transform="translate(136 208)">
+                  <g class="p-uarm p-uarm--far">
+                    <rect class="p-pivot" x="-70" y="-2" width="140" height="4" fill="none"></rect>
+                    <path class="p-uarm-gown" d="M-10 2 C-12 18 -11 34 -8 46 L8 46 C11 34 12 18 10 2 Q0 -4 -10 2 Z"></path>
+                    <g transform="translate(0 44)">
+                      <g class="p-farm p-farm--far">
+                        <rect class="p-pivot" x="-60" y="-2" width="120" height="4" fill="none"></rect>
+                        <path class="p-forearm" d="M-7 2 C-9 16 -8 30 -5 40 L5 40 C8 30 9 16 7 2 Q0 -3 -7 2 Z"></path>
+                        <g transform="translate(0 38)">
+                          <ellipse class="p-hand" cx="0" cy="3" rx="8.5" ry="6.5"></ellipse>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <g class="p-bodice">
+                  <path class="p-bodice-gown" d="M94 196 C98 186 105 181 110 181 C115 181 122 186 126 196 L133 240 C135 254 129 262 117 264 L103 264 C91 262 85 254 87 240 Z"></path>
+                  <path class="p-neckline" d="M99 198 Q110 211 121 198"></path>
+                  <path class="p-trim" d="M88 236 L132 236M96 250 L124 250"></path>
+                  <ellipse class="p-sleeve" cx="90" cy="207" rx="14" ry="18"></ellipse>
+                  <ellipse class="p-sleeve" cx="131" cy="207" rx="14" ry="18"></ellipse>
+                  <path class="p-gem" d="M110 226 l4 6 -4 6 -4 -6 Z"></path>
+                </g>
+                <g class="p-arm p-arm--offer" transform="translate(84 208)">
+                  <g class="p-uarm p-uarm--offer">
+                    <rect class="p-pivot" x="-70" y="-2" width="140" height="4" fill="none"></rect>
+                    <path class="p-uarm-gown" d="M-10 2 C-12 18 -11 34 -8 46 L8 46 C11 34 12 18 10 2 Q0 -4 -10 2 Z"></path>
+                    <path class="p-cuff" d="M-9 40 L9 40 L8 48 L-8 48 Z"></path>
+                    <g transform="translate(0 44)">
+                      <g class="p-farm p-farm--offer">
+                        <rect class="p-pivot" x="-60" y="-2" width="120" height="4" fill="none"></rect>
+                        <path class="p-forearm" d="M-7 2 C-9 16 -8 30 -5 40 L5 40 C8 30 9 16 7 2 Q0 -3 -7 2 Z"></path>
+                        <g transform="translate(0 38)">
+                          <ellipse class="p-hand" cx="0" cy="3" rx="9" ry="7"></ellipse>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <g transform="translate(110 184)">
+                  <g class="p-head">
+                    <rect class="p-pivot" x="-60" y="-116" width="120" height="116" fill="none"></rect>
+                    <path class="p-hair-back" d="M-30 -86 C-40 -58 -38 -28 -31 -6 L-24 8 C-36 22 -32 42 -18 50 L36 50 C46 42 48 24 38 10 L31 -8 C39 -32 37 -62 29 -88 Q12 -102 -2 -100 Q-20 -98 -30 -86 Z"></path>
+                    <path class="p-neck" d="M-9 -22 L9 -22 L7 -4 Q0 1 -7 -4 Z"></path>
+                    <ellipse class="p-face" cx="0" cy="-42" rx="24" ry="30"></ellipse>
+                    <ellipse class="p-ear" cx="-23" cy="-42" rx="5" ry="8"></ellipse>
+                    <ellipse class="p-ear" cx="23" cy="-42" rx="5" ry="8"></ellipse>
+                    <path class="p-bangs" d="M-26 -54 C-20 -74 -8 -81 1 -78 C13 -81 24 -71 27 -56 C18 -63 8 -61 -1 -55 C-9 -62 -18 -61 -26 -54 Z"></path>
+                    <g class="p-locks">
+                      <path class="p-lock" d="M-27 -48 C-31 -28 -29 -10 -23 4 L-15 2 C-21 -12 -22 -32 -20 -46 Z"></path>
+                      <path class="p-lock" d="M27 -48 C31 -28 29 -10 23 4 L15 2 C21 -12 22 -32 20 -46 Z"></path>
+                    </g>
+                    <path class="p-brow" d="M-17 -55 Q-10 -58 -4 -55M4 -55 Q10 -58 17 -55"></path>
+                    <path class="p-eye" d="M-15 -45 Q-9 -50 -3 -45M3 -45 Q9 -50 15 -45"></path>
+                    <path class="p-nose" d="M1 -41 Q4 -36 1 -33"></path>
+                    <path class="p-smile" d="M-7 -27 Q0 -22 7 -27"></path>
+                    <ellipse class="p-blush" cx="-14" cy="-35" rx="6.5" ry="3.6"></ellipse>
+                    <ellipse class="p-blush" cx="14" cy="-35" rx="6.5" ry="3.6"></ellipse>
+                    <path class="p-crown" d="M-25 -86 L-19 -105 L-12 -88 L0 -109 L12 -88 L19 -105 L25 -86 Z"></path>
+                    <path class="p-crown-band" d="M-26 -86 L26 -86 L24 -73 L-24 -73 Z"></path>
+                    <circle class="p-crown-gem" cx="0" cy="-80" r="4.5"></circle>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div class="royal-knight" aria-hidden="true">
+              <svg class="knight-art" viewBox="0 0 260 470" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+                <defs>
+                  <linearGradient id="kSteel" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f4f7fd"></stop><stop offset=".3" stop-color="#bcc5da"></stop><stop offset=".55" stop-color="#6d7690"></stop><stop offset=".8" stop-color="#e7e0da"></stop><stop offset="1" stop-color="#3c445e"></stop></linearGradient>
+                  <linearGradient id="kSteelDark" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#5d6682"></stop><stop offset=".5" stop-color="#2c3348"></stop><stop offset="1" stop-color="#151b2b"></stop></linearGradient>
+                  <linearGradient id="kGreave" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#4a5170"></stop><stop offset=".6" stop-color="#262c40"></stop><stop offset="1" stop-color="#12172a"></stop></linearGradient>
+                  <linearGradient id="kGold" x1="0" x2="1"><stop stop-color="#8f6c34"></stop><stop offset=".5" stop-color="#f6dc96"></stop><stop offset="1" stop-color="#a87f42"></stop></linearGradient>
+                  <linearGradient id="kCapeG" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#93224a"></stop><stop offset=".55" stop-color="#481027"></stop><stop offset="1" stop-color="#230a19"></stop></linearGradient>
+                  <linearGradient id="kPlumeG" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#d84a6e"></stop><stop offset="1" stop-color="#7c1f3d"></stop></linearGradient>
+                  <linearGradient id="kBootG" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#4c5470"></stop><stop offset="1" stop-color="#1a1f33"></stop></linearGradient>
+                  <filter id="kSoft" x="-60%" y="-40%" width="220%" height="200%"><feGaussianBlur stdDeviation="8"></feGaussianBlur></filter>
+                </defs>
+                <ellipse class="k-shadow" cx="134" cy="441" rx="82" ry="10" fill="#000" opacity=".34" filter="url(#kSoft)"></ellipse>
+                <g class="k-body">
+                  <g class="k-cape">
+                    <rect class="k-pivot" x="64" y="182" width="132" height="10" fill="none"></rect>
+                    <path class="k-cape-shape" d="M110 190 C88 198 68 236 60 292 C54 344 62 392 82 424 C96 442 122 446 140 436 C126 392 122 344 128 296 C133 254 136 216 132 192 C126 184 116 186 110 190 Z"></path>
+                    <path class="k-cape-fold" d="M98 226 C90 282 90 348 102 408M118 232 C112 286 112 344 120 396"></path>
+                  </g>
+                  <g class="k-arm k-arm--back" transform="translate(104 216)">
+                    <g class="k-uarm k-uarm--back">
+                      <rect class="k-pivot" x="-70" y="-2" width="140" height="4" fill="none"></rect>
+                      <path class="k-uarm-plate k-uarm-plate--back" d="M-10 2 C-12 18 -11 34 -8 46 L8 46 C11 34 12 18 10 2 Q0 -4 -10 2 Z"></path>
+                      <g transform="translate(0 44)">
+                        <g class="k-farm k-farm--back">
+                          <rect class="k-pivot" x="-60" y="-2" width="120" height="4" fill="none"></rect>
+                          <path class="k-forearm k-forearm--back" d="M-8 2 C-10 16 -9 30 -6 40 L6 40 C9 30 10 16 8 2 Q0 -3 -8 2 Z"></path>
+                          <g transform="translate(0 38)">
+                            <path class="k-gauntlet k-gauntlet--back" d="M-9 -3 C-11 4 -9 12 -3 15 L9 14 C14 13 15 7 12 1 L7 -4 Z"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                  <path class="k-torso" d="M100 208 C100 197 110 191 126 190 L142 190 C158 191 166 199 166 211 L170 292 C171 312 162 322 148 323 L112 323 C98 322 89 312 90 292 L94 220 C95 212 97 209 100 208 Z"></path>
+                  <path class="k-belt" d="M92 294 L168 294 L166 309 L94 309 Z"></path>
+                  <rect class="k-buckle" x="124" y="296" width="13" height="11" rx="2"></rect>
+                  <path class="k-emblem" d="M128 236 l7 10 -7 12 -7 -12 Z"></path>
+                  <ellipse class="k-pauldron k-pauldron--back" cx="99" cy="205" rx="17" ry="11"></ellipse>
+                  <ellipse class="k-pauldron k-pauldron--front" cx="161" cy="205" rx="17" ry="11"></ellipse>
+                  <g class="k-arm k-arm--front" transform="translate(158 216)">
+                    <g class="k-uarm k-uarm--front">
+                      <rect class="k-pivot" x="-70" y="-2" width="140" height="4" fill="none"></rect>
+                      <path class="k-uarm-plate" d="M-10 2 C-12 18 -11 34 -8 46 L8 46 C11 34 12 18 10 2 Q0 -4 -10 2 Z"></path>
+                      <g transform="translate(0 44)">
+                        <g class="k-farm k-farm--front">
+                          <rect class="k-pivot" x="-60" y="-2" width="120" height="4" fill="none"></rect>
+                          <path class="k-forearm" d="M-8 2 C-10 16 -9 30 -6 40 L6 40 C9 30 10 16 8 2 Q0 -3 -8 2 Z"></path>
+                          <g transform="translate(0 38)">
+                            <path class="k-gauntlet" d="M-9 -3 C-11 4 -9 12 -3 15 L10 14 C15 13 16 7 13 1 L8 -4 Z"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                  <g transform="translate(132 194)">
+                    <g class="k-head">
+                      <rect class="k-pivot" x="-64" y="-112" width="128" height="118" fill="none"></rect>
+                      <path class="k-neck" d="M-10 -10 L10 -10 L8 4 Q0 9 -8 4 Z"></path>
+                      <path class="k-helmet" d="M-30 -16 C-32 -46 -18 -64 2 -64 C24 -64 34 -44 32 -18 L30 -8 L-28 -8 Z"></path>
+                      <path class="k-visor" d="M-23 -34 L23 -34 L21 -24 L-21 -24 Z"></path>
+                      <path class="k-visor-line" d="M-21 -29 L21 -29"></path>
+                      <path class="k-plume" d="M3 -62 C-8 -82 -24 -88 -40 -80 C-26 -75 -13 -68 1 -60 Z"></path>
+                      <path class="k-plume k-plume--two" d="M6 -60 C0 -76 -8 -84 -20 -86 C-10 -78 -4 -70 4 -58 Z"></path>
+                      <circle class="k-gem" cx="1" cy="-50" r="4"></circle>
+                    </g>
+                  </g>
+                </g>
+                <g class="k-leg k-leg--back" transform="translate(122 320)">
+                  <g class="k-thigh k-thigh--back">
+                    <rect class="k-pivot" x="-100" y="-4" width="200" height="6" fill="none"></rect>
+                    <path class="k-thigh-plate k-thigh-plate--back" d="M-14 2 C-17 24 -15 44 -10 56 L10 56 C15 44 17 24 14 2 Q0 -5 -14 2 Z"></path>
+                    <g transform="translate(0 54)">
+                      <g class="k-shin k-shin--back">
+                        <rect class="k-pivot" x="-95" y="-3" width="190" height="5" fill="none"></rect>
+                        <path class="k-greave" d="M-9 2 C-12 22 -11 40 -7 50 L7 50 C11 40 12 22 9 2 Q0 -3 -9 2 Z"></path>
+                        <g transform="translate(0 48)">
+                          <path class="k-boot" d="M-10 -5 C-12 4 -10 12 -4 16 L32 14 C42 13 45 6 40 0 L30 -7 L-6 -9 Z"></path>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <g class="k-leg k-leg--front" transform="translate(140 320)">
+                  <g class="k-thigh k-thigh--front">
+                    <rect class="k-pivot" x="-100" y="-4" width="200" height="6" fill="none"></rect>
+                    <path class="k-thigh-plate" d="M-14 2 C-17 24 -15 44 -10 56 L10 56 C15 44 17 24 14 2 Q0 -5 -14 2 Z"></path>
+                    <g transform="translate(0 54)">
+                      <g class="k-shin k-shin--front">
+                        <rect class="k-pivot" x="-95" y="-3" width="190" height="5" fill="none"></rect>
+                        <path class="k-greave" d="M-9 2 C-12 22 -11 40 -7 50 L7 50 C11 40 12 22 9 2 Q0 -3 -9 2 Z"></path>
+                        <g transform="translate(0 48)">
+                          <path class="k-boot" d="M-10 -5 C-12 4 -10 12 -4 16 L34 14 C44 13 47 6 42 0 L32 -7 L-6 -9 Z"></path>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div class="royal-kiss-spark" aria-hidden="true">
+              <svg viewBox="0 0 100 100">
+                <circle class="spark-halo" cx="50" cy="50" r="42"></circle>
+                <path class="spark-star" d="M50 18 L57 43 L82 50 L57 57 L50 82 L43 57 L18 50 L43 43 Z"></path>
+                <path class="spark-star spark-star--small" d="M76 22 L79 31 L88 34 L79 37 L76 46 L73 37 L64 34 L73 31 Z"></path>
+                <path class="spark-star spark-star--small" d="M24 60 L26 67 L33 69 L26 71 L24 78 L22 71 L15 69 L22 67 Z"></path>
+              </svg>
+              <i></i><i></i><i></i><i></i>
+            </div>
+          </div>
+
+          <div class="journey-finale" id="journeyFinale" aria-hidden="true" inert>
+            <p class="journey-final-message" id="journeyFinalText"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="secret-section section-anchor" id="secret-letter" aria-labelledby="secretTitle">
+        <div class="secret-card reveal">
+          <h2 id="secretTitle"></h2>
+          <div class="envelope-scene" id="envelopeScene">
+            <div class="envelope-glow" aria-hidden="true"></div>
+            <div class="envelope" aria-hidden="true">
+              <div class="envelope-back"></div>
+              <div class="envelope-letter"><span>♥</span></div>
+              <div class="envelope-front"></div>
+              <div class="envelope-flap"></div>
+              <span class="envelope-seal">✦</span>
+            </div>
+          </div>
+          <button class="button button--primary secret-open-button" id="openSecretButton" type="button" aria-expanded="false" aria-controls="secretPaper"><span id="secretButtonLabel"></span><span class="button-arrow" aria-hidden="true">←</span></button>
+          <article class="secret-paper" id="secretPaper" aria-live="polite" hidden>
+            <span class="paper-corner paper-corner--one" aria-hidden="true">✦</span>
+            <span class="paper-corner paper-corner--two" aria-hidden="true">✦</span>
+            <div class="secret-copy" id="secretCopy"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="closing">
+      <div class="footer-star" aria-hidden="true">✦</div>
+      <p class="footer-closing" id="footerClosing"></p>
+      <p class="footer-dedication" id="footerDedication"></p>
+      <div class="footer-heart" aria-hidden="true">♥</div>
+      <p class="footer-credit" id="footerCredit"></p>
+      <button class="button button--quiet back-to-top" id="backToTopButton" type="button"><span id="backToTopLabel"></span><span aria-hidden="true">↑</span></button>
+    </footer>
+  </div>
+
+  <div class="music-dock" id="musicDock" hidden>
+    <div class="music-track">
+      <div class="music-track-copy">
+        <span class="music-title" id="musicTitle"></span>
+        <span class="music-artist" id="musicArtist"></span>
+      </div>
+      <span class="music-player-status"><i class="music-dock-indicator" aria-hidden="true"></i><span id="musicStatus" aria-live="polite"></span></span>
+    </div>
+    <div class="music-progress-row" dir="ltr">
+      <span class="music-time" id="musicCurrentTime">0:00</span>
+      <input id="musicSeek" class="music-seek" type="range" min="0" max="1000" step="1" value="0" disabled>
+      <span class="music-time" id="musicDuration">0:00</span>
+    </div>
+    <div class="music-controls">
+      <button class="music-control-button" id="rewindMusic" type="button"><span aria-hidden="true">−10</span></button>
+      <button class="music-control-button music-play-button" id="musicToggle" type="button" aria-pressed="false"><span id="musicToggleIcon" aria-hidden="true">▶</span></button>
+      <button class="music-control-button" id="forwardMusic" type="button"><span aria-hidden="true">+10</span></button>
+      <label class="music-volume-control">
+        <span class="visually-hidden" id="musicVolumeLabel"></span>
+        <span aria-hidden="true">♪</span>
+        <input id="musicVolume" class="volume-slider" type="range" min="0" max="1" step="0.01" value="0.45">
+      </label>
+    </div>
+  </div>
+  <audio id="backgroundMusic" loop preload="none"></audio>
+
+  <dialog class="photo-dialog" id="photoDialog">
+    <button class="dialog-close" id="closePhotoDialog" type="button">×</button>
+    <img id="expandedPhoto" src="" alt="">
+  </dialog>
+</body>
+</html>
