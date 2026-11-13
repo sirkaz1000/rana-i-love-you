@@ -526,6 +526,7 @@
     let started = false;
     let cancerSelected = false;
     let capricornSelected = false;
+    let mapZoomActivated = false;
 
     setText("#countryEgypt", config.worldJourney.egypt);
     setText("#countrySyria", config.worldJourney.syria);
@@ -535,6 +536,9 @@
     setText("#journeyFinalText", config.worldJourney.finale);
     cancerButton.setAttribute("aria-label", config.worldJourney.cancerButtonLabel);
     capricornButton.setAttribute("aria-label", config.worldJourney.capricornButtonLabel);
+    mapLayer.setAttribute("role", "button");
+    mapLayer.setAttribute("tabindex", "0");
+    mapLayer.setAttribute("aria-label", "تكبير خريطة الرحلة");
 
     const countryConnectors = [
       { pin: $("#mapPinTurkey"), label: $("#countryTurkey"), path: $("#countryLineTurkey"), dot: $("#countryLineDotTurkey") },
@@ -667,20 +671,30 @@
       }, fast ? 4200 : 15200);
     }
 
-    function startJourney() {
-      if (started) return;
-      started = true;
-      scene.classList.add("is-map");
-      setLayerAvailable(mapLayer, true);
-      window.setTimeout(() => {
-        scene.classList.add("is-map-zoomed");
-        followMapZoom();
-      }, reducedBySystem ? 80 : 900);
+    function activateMapZoom() {
+      if (mapZoomActivated || !scene.classList.contains("is-map")) return;
+      mapZoomActivated = true;
+      scene.classList.add("is-map-zoomed");
+      followMapZoom();
       window.setTimeout(() => {
         scene.classList.add("is-labels-visible");
         updateCountryConnectors();
       }, reducedBySystem ? 180 : 2400);
       window.setTimeout(showZodiac, reducedBySystem ? 1200 : 10500);
+    }
+
+    function startJourney() {
+      if (started) return;
+      started = true;
+      scene.classList.add("is-map");
+      setLayerAvailable(mapLayer, true);
+      mapLayer.addEventListener("click", activateMapZoom, { once: true });
+      mapLayer.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          activateMapZoom();
+        }
+      });
     }
 
     cancerButton.addEventListener("click", () => {
